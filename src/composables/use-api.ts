@@ -3,6 +3,7 @@ import fetchApi from '@/api/fetch-api';
 
 export default function useApi() {
   const sendRequest = fetchApi();
+
   async function get(url: string, searchParams: URLSearchParams, error: Ref<boolean>, loading: Ref<boolean>) {
     
     const options = {
@@ -21,14 +22,18 @@ export default function useApi() {
       const result = await sendRequest(request);
       const data = await result.json();
       const err = data.error;
+
       if (data.error) {
         throw err;
       }
+
       return data;
-    } catch (err) {
+    }
+    catch (err) {
       error.value = true;
-      console.error('Error: ', err);
-    } finally {
+    }
+    
+    finally {
       loading.value = false;
     }
   }

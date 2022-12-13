@@ -25,8 +25,7 @@ function getRandomUser() {
     />
   <Button @click="getRandomUser">Generate Random User</Button>
   <p><ProgressSpinner v-if="loading" /></p>
-  <p v-if="error">Can't retrieve users please try again!
-  </p>
+  <p v-if="error">Can't retrieve users please try again!</p>
   <p>{{errorMsg}}</p>
   <UserList v-if="users" :users="users"></UserList>
 </template>

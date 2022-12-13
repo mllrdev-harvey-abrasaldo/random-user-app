@@ -20,7 +20,8 @@ export interface Timezone {
 }
 
 export interface Location {
-  street: string;
+  country: string;
+  street: street;
   city: string;
   state: string;
   postcode: string;
@@ -28,9 +29,14 @@ export interface Location {
   timezone: Timezone;
 }
 
+export interface street {
+  name: string;
+  number: number;
+}
+
 export interface Login {
   uuid?: string;
-  username?: string;
+  username: string;
   password?: string;
   salt?: string;
   md5?: string;
@@ -64,7 +70,7 @@ export interface Result {
   name: Name;
   location: Location;
   email: string;
-  login?: Login;
+  login: Login;
   dob?: Dob;
   registered?: Registered;
   phone: string;

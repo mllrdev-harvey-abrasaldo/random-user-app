@@ -8,7 +8,7 @@ import { RouteName } from '@/constants/route-names';
 import type IPage from '@/interface/page';
 import Avatar from 'primevue/avatar';
 import type { Result } from '@/interface/users';
-import SingleUser from './single-user.vue';
+import UserModal from './user-modal.vue';
 
 defineProps({
   users: {
@@ -16,23 +16,25 @@ defineProps({
     required: true
   },
 });
-const selectedUser = ref()
+
+const selectedUser = ref();
 const pageNumber = ref(1);
 const maxPage = ref(1);
 const showUser = ref(false)
+
 function onPage<Type extends IPage>(event: Type) {
   pageNumber.value = event.page + 1;
   maxPage.value = event.pageCount;
-  router.push({ name: RouteName.List, params: { page: pageNumber.value.toString() } })
-}
-function viewUser( ) {
-  router.push({ name: RouteName.User, params: { id: Math.round(Math.random() * 100000) } });
-  showUser.value = !showUser.value
+  router.push({ name: RouteName.LIST, params: { page: pageNumber.value.toString() } })
 }
 
-function backButton() {
-  router.go(-1);
-  showUser.value = !showUser.value
+function backButton(){
+  router.push({ name: RouteName.LIST, params: { page: 1 } });
+  showUser.value = false;
+}
+
+function viewUser() {
+  showUser.value = true;
 }
 
 </script>
@@ -51,7 +53,7 @@ function backButton() {
       >
       <Column field="picture.medium">
         <template #body="{ data }">
-          <Avatar :image = "data.picture.large" shape ="circle" size="xlarge" />
+          <Avatar :image = "data.picture.large" shape ="circle" size="large" />
         </template>
       </Column>
       <Column field="name.first" header="Name" :sortable="true">
@@ -76,7 +78,7 @@ function backButton() {
       </Column>
     </DataTable>
     <div v-if="showUser">
-      <Button @click="backButton()">Back to List</Button>
-      <SingleUser :user="selectedUser"  />
+      <Button @click="backButton">Back to List</Button>
+      <UserModal :user="selectedUser"  />
   </div>
 </template>
