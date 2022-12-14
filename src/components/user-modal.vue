@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import Card from 'primevue/card';
 import Chip from 'primevue/chip';
-import { type PropType, computed, onMounted } from 'vue';
+import { type PropType, computed } from 'vue';
 import type {Result} from '@/interface/users'
 
   const thisUser = defineProps({
