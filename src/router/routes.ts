@@ -14,6 +14,11 @@ const routes: RouteRecordRaw[] = [
     component: () => import('../views/home-page.vue'),
     props: true,
   },
+  {
+    path: '/user/:id',
+    name: RouteName.USER,
+    component: () => import('../views/single-user.vue'),
+  },
 ];
 
 export default routes;

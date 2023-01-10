@@ -2,9 +2,10 @@ import { ref } from 'vue';
 import useApi from '@/composables/use-api';
 import type { Result } from '@/interface/users';
 
+const users = ref<Result[]>();
+
 export default function useData() {
   const { get } = useApi();
-  const users = ref<Result[]>();
   const error = ref(false);
   const loading = ref(false);
   const quantity = ref(1);
@@ -19,10 +20,13 @@ export default function useData() {
     searchParams.set('gender', gender.value);
 
 
-    const data = await get(url, searchParams, error, loading).catch((err) => {
+    try{
+      const data = await get(url, searchParams, error, loading)
+      users.value = data.results;
+    }
+    catch(err) {
       errorMsg.value = err;
-    })
-    users.value = data.results;
+    }
   }
 
   return { getUsers, users, loading, error, quantity, gender, errorMsg };
