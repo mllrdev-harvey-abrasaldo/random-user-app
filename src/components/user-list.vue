@@ -37,6 +37,11 @@ function viewUser() {
   showUser.value = true;
 }
 
+function location(data: Result) {
+  return `${data.location.street.number} ${data.location.street.name} ${data.location.city} 
+      ${data.location.state} ${data.location.country}`
+}
+
 </script>
 
 <template>
@@ -72,8 +77,7 @@ function viewUser() {
       </Column>
       <Column field="location" header="Address">
         <template #body="{ data }">
-          {{ data.location.street.number }} {{ data.location.street.name }}, {{ data.location.city }},
-          {{ data.location.state }}, {{ data.location.country }}
+          {{ location(data) }}
         </template>
       </Column>
     </DataTable>

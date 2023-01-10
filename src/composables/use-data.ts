@@ -19,10 +19,13 @@ export default function useData() {
     searchParams.set('gender', gender.value);
 
 
-    const data = await get(url, searchParams, error, loading).catch((err) => {
+    try{
+      const data = await get(url, searchParams, error, loading)
+      users.value = data.results;
+    }
+    catch(err) {
       errorMsg.value = err;
-    })
-    users.value = data.results;
+    }
   }
 
   return { getUsers, users, loading, error, quantity, gender, errorMsg };
