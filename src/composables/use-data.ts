@@ -2,9 +2,10 @@ import { ref } from 'vue';
 import useApi from '@/composables/use-api';
 import type { Result } from '@/interface/users';
 
+const users = ref<Result[]>();
+
 export default function useData() {
   const { get } = useApi();
-  const users = ref<Result[]>();
   const error = ref(false);
   const loading = ref(false);
   const quantity = ref(1);
